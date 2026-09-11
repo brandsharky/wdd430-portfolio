@@ -1,6 +1,6 @@
 import Introduction from "@/components/Introduction";
 const introduction = {
-  title: "Greetings! My name is Brandon. ",
+  title: "Greetings! My name is Brandon.",
   description: "I am from Southern California. I love to play soccer (futbol), swim, run, and go to the beach. My favorite music artist is Jack Johnson and my favorite band is blink-182. I am looking forward to learning about the full-stack of web development. "
 }
 
