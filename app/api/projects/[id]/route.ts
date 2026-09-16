@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { projects } from '@/lib/projects-db';
+import { getProjectById } from '@/lib/projects-db';
 
 
 
@@ -11,8 +11,7 @@ export async function GET(_request: Request, { params }: { params: Promise<{ id:
     return NextResponse.json({ error: 'Invalid id' }, { status: 400 });
   }
 
-  const project = projects.find((project) => project.id === id);
-
+  const project = await getProjectById(id);
   if (!project) {
     return NextResponse.json({ error: 'Project not found' }, { status: 404 });
   }
