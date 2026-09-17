@@ -4,8 +4,8 @@ import React from "react";
 
 
 export default async function OpenSourcePage() {
-  // const response = await fetch("http://localhost:3000/api/projects?type=opensource");
   const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/projects?type=opensource`);
+  // await new Promise(res => setTimeout(res, 2000)); // add a 2 second delay so skeleton is visible
   const projects = await response.json();
 
   return (

@@ -1,23 +1,24 @@
-export const dynamic = "force-dynamic";
-import React from "react";
+// export const dynamic = "force-dynamic";
+// import React from "react";
+import { Suspense } from "react";
+import SchoolProjectList from './SchoolProjectList';
 
 
 
-export default async function SchoolPage() {
-  // const response = await fetch("http://localhost:3000/api/projects?type=school");
-  const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/projects?type=school`);
-  const projects = await response.json();
-
+export default function SchoolPage() {
   return (
     <main>
       <h1>School Projects</h1>
 
-      {projects.map((project: { id: number; title: string; description: string; type: string }) => (
-        <article key={project.id}>
-          <h2>{project.id}: {project.title}</h2>
-          <p>{project.description}</p>
-        </article>
-      ))}
+      <Suspense
+        fallback={
+          <div className="animate-pulse space-y-4">
+            <div className="h-32 rounded-xl bg-slate-200" />
+          </div>
+        }
+      >
+        <SchoolProjectList />
+      </Suspense>
     </main>
   );
 }
