@@ -1,5 +1,6 @@
 import { getProjectById } from '@/lib/projects-db';
 import { updateProject } from '@/lib/actions';
+import { notFound } from 'next/navigation';
 
 
 
@@ -8,14 +9,7 @@ export default async function EditProjectPage({params,}: {params: Promise<{ id: 
   const project = await getProjectById(Number(id));
 
   if (!project) {
-    return (
-      <section>
-        <h1 className="text-3xl font-bold">Project not found</h1>
-        <p className="mt-2 text-gray-600">
-          We could not find that project.
-        </p>
-      </section>
-    );
+    notFound();
   }
 
   return (

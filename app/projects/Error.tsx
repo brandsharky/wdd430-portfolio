@@ -1,14 +1,44 @@
-"use client";
+'use client';
 
-export default function Error({reset,}: {error: Error & { digest?: string };reset: () => void;}) {
+import Link from 'next/link';
+import { useEffect } from 'react';
+
+export default function Error({
+  error,
+  reset,
+}: {
+  error: Error & { digest?: string };
+  reset: () => void;
+}) {
+  useEffect(() => {
+    console.error('An uncaught error occurred:', error);
+  }, [error]);
+
   return (
-    <div>
-      <h2>Something went wrong!</h2>
-      <p>We couldn't load the projects right now.</p>
+    <div className="mx-auto mt-16 max-w-xl rounded-lg border border-slate-200 bg-white p-6 text-center shadow-sm">
+      <h1 className="text-2xl font-bold text-slate-900">
+        Something went wrong!
+      </h1>
 
-      <button onClick={() => reset()}>
-        Try again
-      </button>
+      <p className="mt-3 text-slate-600">
+        An unexpected error occurred. Please try again later.
+      </p>
+
+      <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
+        <button
+          onClick={reset}
+          className="rounded-md bg-blue-600 px-4 py-2 font-semibold text-white transition hover:bg-blue-700"
+        >
+          Try Again
+        </button>
+
+        <Link
+          href="/projects"
+          className="rounded-md border border-slate-300 px-4 py-2 font-semibold text-slate-700 transition hover:bg-slate-50"
+        >
+          Go Back to Projects
+        </Link>
+      </div>
     </div>
   );
 }
