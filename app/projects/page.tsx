@@ -7,7 +7,7 @@ import {
 } from "@/lib/projects-db";
 import Pagination from "./Pagination";
 import ProjectFilter from "./ProjectFilter";
-// import { SearchParams } from "@/types/search";
+import { deleteProject } from '@/lib/actions';
 
 
 
@@ -49,6 +49,12 @@ export default async function ProjectsPage(props: { searchParams?: Promise<{ que
                 {project.id}: {project.title}
               </h2>
               <p>{project.description}</p>
+
+              <form action={deleteProject.bind(null, project.id.toString())}>
+                <button type="submit" className="text-red-600">
+                  Delete
+                </button>
+              </form>
             </article>
           )
         )
