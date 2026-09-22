@@ -29,14 +29,19 @@ export async function createProject(formData: FormData) {
   }
 
   const { title, description, technologies } = parsed.data;
-  const technologyArray = technologies.split(',').map((technology) => technology.trim()).filter(Boolean);
+  const technologyArray = technologies
+    .split(',')
+    .map((technology) => technology.trim())
+    .filter(Boolean);
+
+  const technologyArrayLiteral = `{${technologyArray.join(',')}}`;
 
   await sql`
     INSERT INTO projects (title, description, technologies)
     VALUES (
       ${title},
       ${description},
-      ${technologyArray}
+      ${technologyArrayLiteral}::text[]
     )
   `;
 
@@ -63,12 +68,14 @@ export async function updateProject(id: string, formData: FormData) {
     .map((technology) => technology.trim())
     .filter(Boolean);
 
+  const technologyArrayLiteral = `{${technologyArray.join(',')}}`;
+
   await sql`
     UPDATE projects
     SET
       title = ${title},
       description = ${description},
-      technologies = ${technologyArray}
+      technologies = ${technologyArrayLiteral}::text[]
     WHERE id = ${id}
   `;
 
