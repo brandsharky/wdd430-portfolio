@@ -5,30 +5,44 @@ import { sql } from '@vercel/postgres';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
+export type State = {
+  errors?: {
+    title?: string[];
+    description?: string[];
+    technologies?: string[];
+    yearCompleted?: string[];
+  };
+  message?: string | null;
+};
 
 
 const ProjectFormSchema = z.object({
   title: z.string().min(2),
   description: z.string().min(10),
   technologies: z.string().min(1),
+  yearCompleted: z.coerce.number().int().min(2007),
 });
 
 
 
-export async function createProject(formData: FormData) {
+export async function createProject(prevState: State, formData: FormData): Promise<State | void> {
   const raw = {
     title: formData.get('title'),
     description: formData.get('description'),
     technologies: formData.get('technologies'),
+    yearCompleted: formData.get('yearCompleted'),
   }
 
   const parsed = ProjectFormSchema.safeParse(raw);
 
   if (!parsed.success) {
-    throw new Error('Invalid project input.')
+    return {
+      errors: parsed.error.flatten().fieldErrors,
+      message: 'Missing or invalid fields. Failed to create project.',
+    };
   }
 
-  const { title, description, technologies } = parsed.data;
+  const { title, description, technologies, yearCompleted } = parsed.data;
   const technologyArray = technologies
     .split(',')
     .map((technology) => technology.trim())
@@ -37,11 +51,12 @@ export async function createProject(formData: FormData) {
   const technologyArrayLiteral = `{${technologyArray.join(',')}}`;
 
   await sql`
-    INSERT INTO projects (title, description, technologies)
+    INSERT INTO projects (title, description, technologies, year_completed)
     VALUES (
       ${title},
       ${description},
-      ${technologyArrayLiteral}::text[]
+      ${technologyArrayLiteral}::text[],
+      ${yearCompleted}
     )
   `;
 

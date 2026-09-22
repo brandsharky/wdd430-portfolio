@@ -23,7 +23,7 @@ export default function Home() {
         <h1 className="text-4xl font-bold mb-4">My Portfolio</h1>
 
         <p className="text-lg text-blue-300">
-          I'm a full-stack developer learning Next.js, React, and Tailwind CSS. Here are some of my recent projects.
+          I&apos;m a full-stack developer learning Next.js, React, and Tailwind CSS. Here are some of my recent projects.
         </p>
       </section>
 

@@ -32,7 +32,7 @@ export default async function ProjectsPage(props: { searchParams?: Promise<{ que
         <div>
           <h2>No projects found</h2>
           <p>
-            We couldn't find any projects matching "{query}".
+            We couldn&apos;t find any projects matching &quot;{query}&quot;.
             Try using a different search term.
           </p>
         </div>
