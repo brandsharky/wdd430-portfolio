@@ -19,7 +19,7 @@ export default function NavLinks({ isLoggedIn }: NavLinksProps) {
         className={
           pathname === "/"
             ? "active"
-            : "block border-[color:var(--border)] px-6 py-3 rounded-3xl border-2 border-solid"
+            : "block border-(--border) px-6 py-3 rounded-3xl border-2 border-solid"
         }
         aria-current={pathname === "/" ? "page" : undefined}
       >
@@ -31,7 +31,7 @@ export default function NavLinks({ isLoggedIn }: NavLinksProps) {
         className={
           pathname === "/about"
             ? "active"
-            : "block border-[color:var(--border)] px-6 py-3 rounded-3xl border-2 border-solid"
+            : "block border-(--border) px-6 py-3 rounded-3xl border-2 border-solid"
         }
         aria-current={pathname === "/about" ? "page" : undefined}
       >
@@ -43,7 +43,7 @@ export default function NavLinks({ isLoggedIn }: NavLinksProps) {
         className={
           pathname === "/projects"
             ? "active"
-            : "block border-[color:var(--border)] px-6 py-3 rounded-3xl border-2 border-solid"
+            : "block border-(--border) px-6 py-3 rounded-3xl border-2 border-solid"
         }
         aria-current={pathname === "/projects" ? "page" : undefined}
       >
@@ -55,7 +55,7 @@ export default function NavLinks({ isLoggedIn }: NavLinksProps) {
         className={
           pathname === "/contact"
             ? "active"
-            : "block border-[color:var(--border)] px-6 py-3 rounded-3xl border-2 border-solid"
+            : "block border-(--border) px-6 py-3 rounded-3xl border-2 border-solid"
         }
         aria-current={pathname === "/contact" ? "page" : undefined}
       >
@@ -68,7 +68,7 @@ export default function NavLinks({ isLoggedIn }: NavLinksProps) {
           className={
             pathname.startsWith("/dashboard")
               ? "active"
-              : "block border-[color:var(--border)] px-6 py-3 rounded-3xl border-2 border-solid"
+              : "block border-(--border) px-6 py-3 rounded-3xl border-2 border-solid"
           }
           aria-current={
             pathname.startsWith("/dashboard") ? "page" : undefined
@@ -82,7 +82,7 @@ export default function NavLinks({ isLoggedIn }: NavLinksProps) {
           className={
             pathname === "/login"
               ? "active"
-              : "block border-[color:var(--border)] px-6 py-3 rounded-3xl border-2 border-solid"
+              : "block border-(--border) px-6 py-3 rounded-3xl border-2 border-solid"
           }
           aria-current={pathname === "/login" ? "page" : undefined}
         >
