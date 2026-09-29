@@ -4,6 +4,8 @@ import { z } from 'zod';
 import { sql } from '@vercel/postgres';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
+import { signIn, signOut, requireOwnerSession } from '@/auth';
+import { AuthError } from 'next-auth';
 
 export type State = {
   errors?: {
@@ -26,6 +28,7 @@ const ProjectFormSchema = z.object({
 
 
 export async function createProject(prevState: State, formData: FormData): Promise<State> {
+  await requireOwnerSession();
   const raw = {
     title: formData.get('title'),
     description: formData.get('description'),
@@ -66,6 +69,7 @@ export async function createProject(prevState: State, formData: FormData): Promi
 
 
 export async function updateProject(id: string, formData: FormData) {
+  await requireOwnerSession();
   const raw = {
     title: formData.get('title'),
     description: formData.get('description'),
@@ -100,6 +104,7 @@ export async function updateProject(id: string, formData: FormData) {
 
 
 export async function deleteProject(id: string) {
+  await requireOwnerSession();
   try {
     await sql`
     DELETE FROM projects
@@ -112,4 +117,30 @@ export async function deleteProject(id: string) {
     throw new Error('Failed to delete project. Please try again later.')
   }
 
+}
+
+
+
+
+
+export async function authenticate(prevState: string | undefined, formData: FormData,) {
+  try {
+    await signIn('credentials', formData);
+  } catch (error) {
+    if (error instanceof AuthError) {
+      switch (error.type) {
+        case 'CredentialsSignin':
+          return 'Invalid email or password.';
+        default:
+          return 'Something went wrong.';
+      }
+    }
+
+    throw error;
+  }
+}
+
+
+export async function signOutAction() {
+  await signOut();
 }
