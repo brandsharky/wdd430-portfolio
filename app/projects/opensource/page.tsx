@@ -1,6 +1,11 @@
 export const dynamic = "force-dynamic";
-import React from "react";
+import type { Metadata } from 'next';
 
+
+
+export const metadata: Metadata = {
+  title: 'Open Source',
+};
 
 
 export default async function OpenSourcePage() {

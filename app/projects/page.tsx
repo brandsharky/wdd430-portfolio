@@ -8,7 +8,13 @@ import {
 import Pagination from "./Pagination";
 import ProjectFilter from "./ProjectFilter";
 import { deleteProject } from '@/lib/actions';
+import type { Metadata } from 'next';
 
+
+
+export const metadata: Metadata = {
+  title: 'Projects',
+};
 
 
 export default async function ProjectsPage(props: { searchParams?: Promise<{ query?: string; type?: string; page?: string }>; }) {

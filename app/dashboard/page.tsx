@@ -1,6 +1,12 @@
 import { auth } from '@/auth';
 import { signOutAction } from '@/lib/actions';
+import type { Metadata } from 'next';
 
+
+
+export const metadata: Metadata = {
+  title: 'Dashboard',
+};
 
 
 export default async function DashboardPage() {

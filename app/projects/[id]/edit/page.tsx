@@ -1,7 +1,26 @@
 import { getProjectById } from '@/lib/projects-db';
 import { updateProject } from '@/lib/actions';
 import { notFound } from 'next/navigation';
+import type { Metadata } from 'next';
 
+
+
+export async function generateMetadata({params,}: {params: Promise<{ id: string }>;}): Promise<Metadata> {
+  const { id } = await params;
+  const project = await getProjectById(Number(id));
+
+  if (!project) {
+    return {
+      title: 'Project Not Found',
+      description: 'The requested project could not be found.',
+    };
+  }
+
+  return {
+    title: `Edit ${project.title}`,
+    description: `Edit the ${project.title} project.`,
+  };
+}
 
 
 export default async function EditProjectPage({params,}: {params: Promise<{ id: string }>;}) {

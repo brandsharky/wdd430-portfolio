@@ -1,6 +1,12 @@
 import { Suspense } from "react";
 import SchoolProjectList from './SchoolProjectList';
+import type { Metadata } from 'next';
 
+
+
+export const metadata: Metadata = {
+  title: 'School',
+};
 
 
 export default function SchoolPage() {
